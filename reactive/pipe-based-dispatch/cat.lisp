@@ -13,6 +13,7 @@
   (lambda ()
     (multiple-value-bind (port-index data)
         (cl-pipeline:receive)
-      (declare (ignore port-index))
-      (when data
-        (cl-pipeline:send cl-pipeline:+stdout+ data)))))
+      (assert (eq cl-pipeline:+stdin+ port-index))
+      (when (and data (stringp data))
+      (let ((str (alexandria:read-file-into-string data)))
+        (cl-pipeline:send cl-pipeline:+stdout+ str))))))
