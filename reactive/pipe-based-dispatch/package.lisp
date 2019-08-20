@@ -16,4 +16,6 @@
   (:use :cl)
   (:export
    #:defhandle
-   #:return-nothing))
+   #:return-nothing
+   #:.loop
+   #:.exit-when))

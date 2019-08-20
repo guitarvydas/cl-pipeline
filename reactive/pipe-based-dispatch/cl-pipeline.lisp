@@ -81,14 +81,14 @@
   (let ((out-pid nil)
         (in-pid nil))
     (let ((pid-list *pid-list*))
-      (@loop
-       (@exit-when (eq (aref (imp-pid-pipe-array (first pid-list)) +stdin+) pipe))
+      (@:.loop
+       (@:.exit-when (eq (aref (imp-pid-pipe-array (first pid-list)) +stdin+) pipe))
        (.discard-first-item pid-list))
       (assert (not (null pid-list)))
       (setf in-pid (first pid-list)))
     (let ((pid-list *pid-list*))
-      (@loop
-       (@exit-when (eq (aref (imp-pid-pipe-array (first pid-list)) +stdout+) pipe))
+      (@:.loop
+       (@:.exit-when (eq (aref (imp-pid-pipe-array (first pid-list)) +stdout+) pipe))
        (.discard-first-item pid-list))
       (assert (not (null pid-list)))
       (setf out-pid (first pid-list)))
@@ -223,8 +223,8 @@
     (@:return-nothing)))
 
 (defun @pipe-together (pid-list)
-  (@loop
-   (@exit-when (< (length pid-list) 2))
+  (@:.loop
+   (@:.exit-when (< (length pid-list) 2))
    (let ((output-process (first pid-list))
          (input-process (second pid-list)))
      (let ((new-pipe (.pipe-2-pids-together output-process input-process)))
@@ -235,8 +235,8 @@
   ;; call initializer for each process, then set the steady-state function for each process
   ;; in Common Lisp, we can do this in one fell swoop - the initializer returns a LAMBDA which
   ;; is the zero-arg steady-state-function
-  (@loop
-   (@exit-when (null cmd-list))
+  (@:.loop
+   (@:.exit-when (null cmd-list))
    (let ((cmd (first cmd-list)) ;; cmd is (func args) or (func)
          (pid (first pid-list)))
      (.set-current-pid pid)
@@ -258,8 +258,8 @@
   ;; (and delete randomness) if we knew that the Concurrent Paradigm was being honoured.
   (assert (.pipe-list-not-empty))
   (.log "Dispatching")
-  (@loop
-   (@exit-when (.all-pipe-outputs-empty-p))
+  (@:.loop
+   (@:.exit-when (.all-pipe-outputs-empty-p))
    (.mapc-random #'@dispatch-one *pipe-list*))
   (.log "End dispatching"))
 

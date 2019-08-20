@@ -16,7 +16,6 @@
       (multiple-value-bind (port-index data)
           (cl-pipeline:receive)
         (assert (eq cl-pipeline:+stdin+ port-index))
-        (format *error-output* "clgrep: index=~s data=~s~%" port-index data)
         (let ((successful-match (cl-ppcre:scan regex data)))
           (when successful-match
             (let ((output-str (concatenate 'string "clgrep matched: " data)))
