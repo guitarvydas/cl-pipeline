@@ -2,6 +2,7 @@
   ;; this is actually a 2-state state machine
 
   ;; 1- inititialization - produces output
+  (cl-pipeline:myname "cat")
   (when args
     (assert (= 1 (length args)))
     (let ((name (car args)))
@@ -14,6 +15,7 @@
     (multiple-value-bind (port-index data)
         (cl-pipeline:receive)
       (assert (eq cl-pipeline:+stdin+ port-index))
+      (format *error-output* "cat lambda: ~S ~S~%" port-index data)
       (when (and data (stringp data))
-      (let ((str (alexandria:read-file-into-string data)))
-        (cl-pipeline:send cl-pipeline:+stdout+ str))))))
+        (let ((str (alexandria:read-file-into-string data)))
+          (cl-pipeline:send cl-pipeline:+stdout+ str))))))

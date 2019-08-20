@@ -5,8 +5,10 @@
   :members (
             "package"
             "loop-macros"
+            "arch-macros"
             "cl-pipeline"
             "cat"
+            "cat-lines"
             "echo"
             "clgrep"
             "main"

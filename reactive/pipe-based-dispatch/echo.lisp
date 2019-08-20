@@ -4,6 +4,7 @@
   ;; this is actually a 2-state statemachine
 
   ;; 1 - initialization - send args to stdout
+  (cl-pipeline:myname "echo")
   (mapc #'(lambda (arg)
             (cl-pipeline:send cl-pipeline:+stdout+ arg))
         args)

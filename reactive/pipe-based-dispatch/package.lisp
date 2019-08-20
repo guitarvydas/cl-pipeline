@@ -7,4 +7,13 @@
 
    #:send
    #:receive
-   #:defpipeline))
+   #:defpipeline
+
+   ;; debug
+   #:myname))
+
+(defpackage @
+  (:use :cl)
+  (:export
+   #:defhandle
+   #:return-nothing))
